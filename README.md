@@ -1,2 +1,2 @@
 # CodeEducationDeployContinuo
-Code Education - Projeto Deploy Continuo
+Code Education - Entrega Projeto Deploy Continuo
