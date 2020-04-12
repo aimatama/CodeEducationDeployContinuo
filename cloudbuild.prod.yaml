@@ -26,20 +26,12 @@ steps:
     name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/go-hpa"]
 
-  - id: "Adjusting deployment file Kubernetes"
-    name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: '/bin/sh'
-    args:
-      - '-c'
-      - |
-        sed 's#go-hpa#gcr.io/$PROJECT_ID/go-hpa:$SHORT_SHA#g' GCP/deployment.yaml > GCP/deployment-new.yaml;
-
   - id: "Deploying K8S"
     name: 'gcr.io/cloud-builders/kubectl'
     args:
       - 'apply'
       - '-f'
-      - 'GCP/deployment-new.yaml'
+      - 'GCP/deployment.yaml'
     env:
     - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
     - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-docker-laravel'
